@@ -1,0 +1,129 @@
+# ============================================================
+# 订阅源(13 条)
+# ============================================================
+feeds:
+  # arXiv 主分类
+  - https://rss.arxiv.org/atom/cs.LG
+  - https://rss.arxiv.org/atom/stat.ML
+  - https://rss.arxiv.org/atom/cs.AI
+  - https://rss.arxiv.org/atom/cs.CL
+  - https://rss.arxiv.org/atom/cs.CV
+  - https://rss.arxiv.org/atom/cs.IR
+  - https://rss.arxiv.org/atom/eess.SP
+  - https://rss.arxiv.org/atom/eess.SY
+  - https://rss.arxiv.org/atom/cs.RO
+  - https://rss.arxiv.org/atom/cs.SE
+  # IEEE Xplore (TOC 9424)
+  - https://ieeexplore.ieee.org/rss/TOC9424.XML
+  # ScienceDirect: Mechanical Systems and Signal Processing
+  - https://rss.sciencedirect.com/publication/science/08883270
+  # ScienceDirect: Reliability Engineering & System Safety
+  - https://rss.sciencedirect.com/publication/science/09518320
+
+# ============================================================
+# 关键词:命中任一即纳入(OR 关系),标题与摘要任一字段命中即可
+# 含空格/连字符/小数点的视为短语,精确子串匹配
+# 单 token 短词按词边界匹配,避免误命中
+# ============================================================
+keywords:
+  # --- TSFM 核心 ---
+  - time series foundation model
+  - foundation model for time series
+  - forecasting foundation model
+  - zero-shot forecasting
+  - few-shot forecasting
+  - Chronos
+  - Chronos-2
+  - Moirai
+  - Moirai 2.0
+  - Moirai-MoE
+  - TimesFM
+  - Sundial
+  - TimeFound
+  - TimeDiT
+  - Time-LLM
+  - Timer-XL
+  - Lag-Llama
+  - TimeGPT
+  - GIFT-Eval
+  - TSFM-Bench
+  - TimeBench
+  - fev-bench
+
+  # --- 物理 / 频域 / 不确定性 ---
+  - physics-informed
+  - physics-guided
+  - physics-constrained
+  - physical constraint
+  - frequency domain
+  - spectral
+  - spectrogram
+  - non-stationary
+  - domain shift
+  - distribution shift
+  - calibration
+  - probabilistic forecasting
+
+  # --- PHM / 工业 ---
+  - prognostics and health management
+  - predictive maintenance
+  - remaining useful life
+  - fault diagnosis
+  - bearing fault
+  - gearbox fault
+  - rotating machinery
+  - condition monitoring
+  - vibration
+  - industrial time series
+
+  # --- 多模态 / 视觉-语言 ---
+  - multimodal time series
+  - multimodal fault diagnosis
+  - vibration signal
+  - acoustic signal
+  - sound-vibration
+  - time-frequency image
+  - envelope spectrum
+  - Q-Former
+  - BLIP-2
+  - LLaVA
+  - Qwen2.5-VL
+  - vision-language model
+  - large language model
+
+  # --- RAG / Agent / MCP ---
+  - retrieval augmented
+  - TS-RAG
+  - Self-RAG
+  - Corrective RAG
+  - GraphRAG
+  - RAGAS
+  - agentic
+  - LangGraph
+  - Model Context Protocol
+  - human-in-the-loop
+  - auditability
+
+# ============================================================
+# 大小写敏感关键词:这些短/常见词如果走默认大小写不敏感,
+# 会被英文常用词大量误命中(timer/moment/uncertainty/spectral/scada 等
+# 部分词较安全;rag/mcp/rul/phm/tsfm 这类全大写缩写最危险)
+# ============================================================
+case_sensitive_keywords:
+  - RAG
+  - MCP
+  - RUL
+  - PHM
+  - TSFM
+  - SCADA
+  - MOMENT
+  - Timer
+  - Chronos
+  - Sundial
+  - uncertainty
+
+# ============================================================
+# 字段与限额
+# ============================================================
+search_fields: [title, summary]
+max_items: 300
