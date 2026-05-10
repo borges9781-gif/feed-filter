@@ -12,4 +12,7 @@ https://<你的用户名>.github.io/feed-filter/filtered.xml
 也可在 Actions 页面手动触发 (workflow_dispatch)。
 
 ## 调试本地运行
+pip install -r requirements.txt
+python filter.py
 
+查看 `public/filtered.xml`。
