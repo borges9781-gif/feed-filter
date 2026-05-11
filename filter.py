@@ -3,6 +3,13 @@ Aggregate-Filter-Republish for academic RSS/Atom feeds.
 Reads config.yaml, fetches all feeds, filters by keywords,
 emits a single combined RSS at public/filtered.xml.
 """
+import requests
+
+HEADERS = {
+    "User-Agent": "Mozilla/5.0 (compatible; feed-filter/1.0; +https://github.com/borges9781-gif/feed-filter)",
+    "Accept": "application/rss+xml, application/atom+xml, application/xml;q=0.9, */*;q=0.8",
+}
+
 import re
 import sys
 import yaml
