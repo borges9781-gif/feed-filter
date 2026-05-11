@@ -80,16 +80,20 @@ def main():
 
     for url in CFG["feeds"]:
         t0 = time.time()
+        status, nbytes = "?", 0
         try:
-            d = feedparser.parse(url)
+            r = requests.get(url, headers=HEADERS, timeout=30)
+            status, nbytes = r.status_code, len(r.content)
+            r.raise_for_status()
+            d = feedparser.parse(r.content)
         except Exception as e:
-            stats.append((url, 0, 0, f"PARSE_ERROR: {e}"))
+            stats.append((url, 0, 0, f"FETCH_ERR {status} {nbytes}B: {e}"))
             continue
-
+    
         if d.bozo and not d.entries:
-            stats.append((url, 0, 0, f"BOZO: {d.bozo_exception}"))
+            stats.append((url, 0, 0, f"BOZO {status} {nbytes}B: {d.bozo_exception}"))
             continue
-
+    
         seen_in_feed = total = hits = 0
         for entry in d.entries:
             total += 1
@@ -104,9 +108,10 @@ def main():
                 entry["_matched_keywords"] = matched
                 entry["_published_dt"] = parse_published(entry)
                 all_hits.append(entry)
-
+    
         elapsed = time.time() - t0
-        stats.append((url, total, hits, f"{elapsed:.1f}s"))
+        stats.append((url, total, hits, f"{elapsed:.1f}s {status} {nbytes//1024}KB"))
+
 
     all_hits.sort(key=lambda e: e["_published_dt"], reverse=True)
     all_hits = all_hits[:MAX_ITEMS]
