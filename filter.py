@@ -73,14 +73,54 @@ def parse_published(entry):
     return datetime.now(timezone.utc)
 
 
+def round_robin_select(hits_by_feed, max_items):
+    """Round-robin selection: take latest from each feed alternately.
+    
+    Algorithm:
+    1. Sort each feed's hits by publish time (descending)
+    2. Use round-robin to collect items: take one from each feed in turn
+    3. Stop when max_items reached or all feeds exhausted
+    
+    This guarantees:
+    - Every feed gets fair representation (no single feed can dominate)
+    - Within each feed, newest items are prioritized
+    - All feeds have opportunity to contribute, even small ones
+    """
+    feeds_with_hits = [(url, hits) for url, hits in hits_by_feed.items() if hits]
+    if not feeds_with_hits:
+        return []
+    
+    for url, hits in feeds_with_hits:
+        hits.sort(key=lambda e: e["_published_dt"], reverse=True)
+    
+    result = []
+    indices = {url: 0 for url, _ in feeds_with_hits}
+    
+    while len(result) < max_items:
+        made_progress = False
+        for url, _ in feeds_with_hits:
+            if len(result) >= max_items:
+                break
+            idx = indices[url]
+            if idx < len(hits_by_feed[url]):
+                result.append(hits_by_feed[url][idx])
+                indices[url] += 1
+                made_progress = True
+        if not made_progress:
+            break
+    
+    return result
+
+
 def main():
     seen_ids = set()
-    all_hits = []
+    hits_by_feed = {}
     stats = []
 
     for url in CFG["feeds"]:
         t0 = time.time()
         status, nbytes = "?", 0
+        hits_by_feed[url] = []
         try:
             r = requests.get(url, headers=HEADERS, timeout=30)
             status, nbytes = r.status_code, len(r.content)
@@ -107,14 +147,13 @@ def main():
                 hits += 1
                 entry["_matched_keywords"] = matched
                 entry["_published_dt"] = parse_published(entry)
-                all_hits.append(entry)
+                hits_by_feed[url].append(entry)
     
         elapsed = time.time() - t0
         stats.append((url, total, hits, f"{elapsed:.1f}s {status} {nbytes//1024}KB"))
 
 
-    all_hits.sort(key=lambda e: e["_published_dt"], reverse=True)
-    all_hits = all_hits[:MAX_ITEMS]
+    all_hits = round_robin_select(hits_by_feed, MAX_ITEMS)
 
     # ----- Build output feed -----
     fg = FeedGenerator()
