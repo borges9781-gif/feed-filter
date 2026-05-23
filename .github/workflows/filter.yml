@@ -24,7 +24,24 @@ jobs:
           python-version: "3.11"
           cache: pip
       - run: pip install -r requirements.txt
-      - run: python filter.py
+
+      # 1) arXiv + IEEE + ScienceDirect (每次都跑, 主力增量)
+      - name: Run RSS filter
+        run: python filter.py
+
+      # 2) OpenReview 主会 + workshop (偶发 429, 挂了不阻断其他源)
+      - name: Run OpenReview fetcher
+        run: python openreview_fetch.py
+        env:
+          OPENREVIEW_USERNAME: ${{ secrets.OPENREVIEW_USERNAME }}
+          OPENREVIEW_PASSWORD: ${{ secrets.OPENREVIEW_PASSWORD }}
+        continue-on-error: true
+
+      # 3) ACL Anthology BibTeX (出版后才有数据, 平时多为 0, 挂了不阻断)
+      - name: Run ACL Anthology fetcher
+        run: python acl_fetch.py
+        continue-on-error: true
+
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
