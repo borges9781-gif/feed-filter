@@ -1,0 +1,33 @@
+# OpenReview venues 列表
+# id 字段是 venue 在 OpenReview 上的标识,可在 venue 主页 URL 里看到
+# 例如 https://openreview.net/group?id=ICLR.cc/2026/Conference
+# 则 id 为 ICLR.cc/2026/Conference
+
+venues:
+  # --- 已开放浏览的(目前能拉到数据) ---
+  - { id: "ICLR.cc/2026/Conference",                 name: "ICLR 2026" }
+  - { id: "NeurIPS.cc/2025/Conference",              name: "NeurIPS 2025" }
+  - { id: "NeurIPS.cc/2025/Track/Datasets_and_Benchmarks", name: "NeurIPS 2025 D&B" }
+  - { id: "TMLR",                                    name: "TMLR" }
+  - { id: "colmweb.org/COLM/2025/Conference",        name: "COLM 2025" }
+
+  # --- 即将开放(占位,届时数据自动出现) ---
+  - { id: "ICLR.cc/2027/Conference",                 name: "ICLR 2027" }
+  - { id: "NeurIPS.cc/2026/Conference",              name: "NeurIPS 2026" }
+  - { id: "NeurIPS.cc/2026/Track/Datasets_and_Benchmarks", name: "NeurIPS 2026 D&B" }
+  - { id: "colmweb.org/COLM/2026/Conference",        name: "COLM 2026" }
+
+  # --- ARR 月度滚动,需要按月加 ---
+  # 命名规则:aclweb.org/ACL/ARR/<year>/<Month>
+  - { id: "aclweb.org/ACL/ARR/2026/February",        name: "ARR 2026.02" }
+  - { id: "aclweb.org/ACL/ARR/2026/April",           name: "ARR 2026.04" }
+  - { id: "aclweb.org/ACL/ARR/2026/June",            name: "ARR 2026.06" }
+
+# 输出最近 N 条
+max_items: 200
+
+# 尝试的 submission invitation 模板,脚本会按顺序试
+# 不同 venue 命名习惯不一致,这里覆盖常见几种
+invitation_patterns:
+  - "{vid}/-/Submission"
+  - "{vid}/-/Blind_Submission"
