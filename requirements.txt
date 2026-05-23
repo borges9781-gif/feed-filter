@@ -2,3 +2,5 @@ feedparser>=6.0.10
 feedgen>=1.0.0
 PyYAML>=6.0
 requests
+openreview-py>=1.41.0
+bibtexparser>=1.4.0
