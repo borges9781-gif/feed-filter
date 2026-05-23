@@ -12,9 +12,9 @@ venues:
 
   # --- NeurIPS (主会 + Datasets & Benchmarks track) ---
   - { id: "NeurIPS.cc/2025/Conference",                    name: "NeurIPS 2025" }
-  - { id: "NeurIPS.cc/2025/Track/Datasets_and_Benchmarks", name: "NeurIPS 2025 D&B" }
+  - { id: "NeurIPS.cc/2025/Datasets_and_Benchmarks_Track", name: "NeurIPS 2025 D&B" }
   - { id: "NeurIPS.cc/2024/Conference",                    name: "NeurIPS 2024" }
-  - { id: "NeurIPS.cc/2024/Track/Datasets_and_Benchmarks", name: "NeurIPS 2024 D&B" }
+  - { id: "NeurIPS.cc/2024/Datasets_and_Benchmarks_Track", name: "NeurIPS 2024 D&B" }
 
   # --- ICML (自 2023 起在 OpenReview, 覆盖了 PMLR 上的 ICML) ---
   - { id: "ICML.cc/2025/Conference",                       name: "ICML 2025" }
@@ -39,9 +39,10 @@ venues:
 #     workshop 页 URL 上 ?id= 后面的真实串为准, 否则该行会 0 命中 !!!
 # ============================================================
 workshops:
-  - { id: "ICLR.cc/2025/Workshop/Foundation_Models_in_the_Wild",          name: "ICLR'25 W: FM-Wild" }
-  - { id: "NeurIPS.cc/2024/Workshop/Time_Series_in_the_Age_of_Large_Models", name: "NeurIPS'24 W: TS-LLM" }
-  - { id: "ICML.cc/2024/Workshop/FM_Wild",                                 name: "ICML'24 W: FM-Wild" }
+  - { id: "ICLR.cc/2026/Workshop/TSALM",          name: "ICLR'26 W: TSALM" }
+  - { id: "NeurIPS.cc/2024/Workshop/TSALM", name: "NeurIPS'24 W: TSALM" }
+  - { id: "ICML.cc/2025/Workshop/FMSD",     name: "ICML'25 W: FMSD" }
+  - { id: "ICML.cc/2024/Workshop/TF2M",     name: "ICML'24 W: TF2M" }
 
 # ============================================================
 # 抓取参数
