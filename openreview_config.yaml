@@ -1,0 +1,61 @@
+# ============================================================
+# OpenReview 主会 venues
+# venue id = OpenReview venue 主页 URL 里 ?id= 后面那一串
+# 例: https://openreview.net/group?id=ICLR.cc/2026/Conference
+#     -> id 为 ICLR.cc/2026/Conference
+# 每年开新会时把年份改一下加进来即可(未开放的 venue 会自动 0 命中, 不报错)
+# ============================================================
+venues:
+  # --- ICLR ---
+  - { id: "ICLR.cc/2026/Conference",                       name: "ICLR 2026" }
+  - { id: "ICLR.cc/2025/Conference",                       name: "ICLR 2025" }
+
+  # --- NeurIPS (主会 + Datasets & Benchmarks track) ---
+  - { id: "NeurIPS.cc/2025/Conference",                    name: "NeurIPS 2025" }
+  - { id: "NeurIPS.cc/2025/Track/Datasets_and_Benchmarks", name: "NeurIPS 2025 D&B" }
+  - { id: "NeurIPS.cc/2024/Conference",                    name: "NeurIPS 2024" }
+  - { id: "NeurIPS.cc/2024/Track/Datasets_and_Benchmarks", name: "NeurIPS 2024 D&B" }
+
+  # --- ICML (自 2023 起在 OpenReview, 覆盖了 PMLR 上的 ICML) ---
+  - { id: "ICML.cc/2025/Conference",                       name: "ICML 2025" }
+  - { id: "ICML.cc/2024/Conference",                       name: "ICML 2024" }
+
+  # --- TMLR / COLM ---
+  - { id: "TMLR",                                          name: "TMLR" }
+  - { id: "colmweb.org/COLM/2025/Conference",              name: "COLM 2025" }
+
+  # --- ACL Rolling Review (月度滚动, 每月一个新 id) ---
+  - { id: "aclweb.org/ACL/ARR/2026/February",              name: "ARR 2026.02" }
+  - { id: "aclweb.org/ACL/ARR/2026/April",                 name: "ARR 2026.04" }
+  - { id: "aclweb.org/ACL/ARR/2026/June",                  name: "ARR 2026.06" }
+
+# ============================================================
+# Workshops:每年开会前到对应官网 Schedule 页找当年真实 ID 后更新
+#   ICLR:    https://iclr.cc/Conferences/2026/Schedule
+#   NeurIPS: https://neurips.cc/Conferences/2025/Schedule
+#   ICML:    https://icml.cc/Conferences/2025/Schedule
+# 命名规则:<Conf>.cc/<Year>/Workshop/<WorkshopName>
+# !!! 下面是占位示例, WorkshopName 区分大小写带下划线, 必须以 OpenReview
+#     workshop 页 URL 上 ?id= 后面的真实串为准, 否则该行会 0 命中 !!!
+# ============================================================
+workshops:
+  - { id: "ICLR.cc/2025/Workshop/Foundation_Models_in_the_Wild",          name: "ICLR'25 W: FM-Wild" }
+  - { id: "NeurIPS.cc/2024/Workshop/Time_Series_in_the_Age_of_Large_Models", name: "NeurIPS'24 W: TS-LLM" }
+  - { id: "ICML.cc/2024/Workshop/FM_Wild",                                 name: "ICML'24 W: FM-Wild" }
+
+# ============================================================
+# 抓取参数
+# ============================================================
+# 脚本按顺序尝试这些 invitation 模板, 命中第一个有数据的即停
+invitation_patterns:
+  - "{vid}/-/Submission"
+  - "{vid}/-/Blind_Submission"
+
+# 是否过滤掉已 withdraw / desk-reject 的提交
+exclude_withdrawn: true
+
+# 每个源(每个 venue/workshop)最多取多少条进轮询池, 防止单个大会刷屏
+per_source_cap: 60
+
+# 输出 RSS 的全局条数上限
+max_items: 300

@@ -1,0 +1,45 @@
+# ============================================================
+# ACL Anthology volumes
+# volume id = aclanthology.org 上 volume 页 URL 里的那串
+# 例: https://aclanthology.org/volumes/2024.findings-acl/
+#     -> id 为 2024.findings-acl
+# 命名规律:
+#   <year>.acl-long / <year>.acl-short / <year>.findings-acl
+#   <year>.emnlp-main / <year>.findings-emnlp
+#   <year>.naacl-long / <year>.findings-naacl
+# 自 2020 起 BibTeX 含 abstract 字段, 所以标题+摘要都能命中
+# 每年新会议出版后(ACL~8月, EMNLP~12月, NAACL~6月)把当年 volume 加进来
+# 未出版的 volume 会 EMPTY_OR_NOT_FOUND, 不报错
+# ============================================================
+volumes:
+  # --- ACL 2024 ---
+  - { id: "2024.acl-long",        name: "ACL 2024 Long" }
+  - { id: "2024.acl-short",       name: "ACL 2024 Short" }
+  - { id: "2024.findings-acl",    name: "Findings ACL 2024" }
+  # --- EMNLP 2024 ---
+  - { id: "2024.emnlp-main",      name: "EMNLP 2024 Main" }
+  - { id: "2024.findings-emnlp",  name: "Findings EMNLP 2024" }
+  # --- NAACL 2024 ---
+  - { id: "2024.naacl-long",      name: "NAACL 2024 Long" }
+  - { id: "2024.findings-naacl",  name: "Findings NAACL 2024" }
+  # --- ACL / EMNLP 2025 (占位, 出版后自动有数据) ---
+  - { id: "2025.acl-long",        name: "ACL 2025 Long" }
+  - { id: "2025.acl-short",       name: "ACL 2025 Short" }
+  - { id: "2025.findings-acl",    name: "Findings ACL 2025" }
+  - { id: "2025.emnlp-main",      name: "EMNLP 2025 Main" }
+  - { id: "2025.findings-emnlp",  name: "Findings EMNLP 2025" }
+
+# Workshop volumes 可选(数量大、噪声高, 默认关闭)。需要时取消注释:
+# workshop_volumes:
+#   - { id: "2024.nlp4science-1", name: "NLP4Science 2024" }
+
+# ============================================================
+# 抓取参数
+# ============================================================
+bibtex_url_template: "https://aclanthology.org/volumes/{vid}.bib"
+
+# 每个 volume 最多取多少条进轮询池
+per_source_cap: 60
+
+# 输出 RSS 全局上限
+max_items: 300
