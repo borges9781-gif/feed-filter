@@ -1,9 +1,9 @@
 name: filter-feeds
 
 on:
-  schedule:
-    - cron: "15 */6 * * *"   # 每 6 小时跑一次,错峰 15 分避开整点高峰
-  workflow_dispatch:          # 改完 config 想立刻生效就手动触发
+  # schedule:
+  #   - cron: "15 */6 * * *"   # 每 6 小时跑一次,错峰 15 分避开整点高峰
+  # workflow_dispatch:          # 改完 config 想立刻生效就手动触发
 
 permissions:
   contents: read
